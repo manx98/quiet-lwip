@@ -4,7 +4,7 @@ include(CheckLibraryExists)
 include(CheckIncludeFiles)
 include(CheckCCompilerFlag)
 
-set(QUIET_PROFILES_LOCATION "${CMAKE_INSTALL_PREFIX}/share/quiet/")
+set(QUIET_PROFILES_LOCATION "${CMAKE_BINARY_DIR}/share/quiet/")
 add_definitions(-DQUIET_PROFILES_LOCATION="${QUIET_PROFILES_LOCATION}quiet-profiles.json")
 
 if (CMAKE_C_COMPILER_ID MATCHES "GNU" OR CMAKE_C_COMPILER_ID MATCHES "Clang")
@@ -69,7 +69,7 @@ set_target_properties(quiet PROPERTIES INSTALL_RPATH "@rpath/libquiet.dylib")
 add_custom_target(lib DEPENDS quiet quiet_static)
 
 file(COPY include/quiet-portaudio.h include/quiet.h DESTINATION ${CMAKE_BINARY_DIR}/include)
-file(COPY quiet-profiles.json DESTINATION ${CMAKE_BINARY_DIR}/share/quiet-profiles.json)
+file(COPY quiet-profiles.json DESTINATION ${CMAKE_BINARY_DIR}/share)
 
 set(buildable_programs "")
 
