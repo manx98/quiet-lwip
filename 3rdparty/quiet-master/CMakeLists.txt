@@ -69,7 +69,7 @@ set_target_properties(quiet PROPERTIES INSTALL_RPATH "@rpath/libquiet.dylib")
 add_custom_target(lib DEPENDS quiet quiet_static)
 
 file(COPY include/quiet-portaudio.h include/quiet.h DESTINATION ${CMAKE_BINARY_DIR}/include)
-file(COPY quiet-profiles.json DESTINATION ${CMAKE_BINARY_DIR}/share)
+file(COPY quiet-profiles.json DESTINATION ${CMAKE_BINARY_DIR}/share/quiet)
 
 set(buildable_programs "")
 
