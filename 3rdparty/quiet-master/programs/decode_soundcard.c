@@ -10,7 +10,7 @@ static void sig_handler(int signal) {
     }
 }
 
-int decode_from_soundcard(FILE *output, quiet_decoder_options *opt) {
+static int decode_from_soundcard(FILE *output, quiet_decoder_options *opt) {
     PaError err = Pa_Initialize();
     if (err != paNoError) {
         printf("failed to initialize port audio, %s\n", Pa_GetErrorText(err));
@@ -18,7 +18,16 @@ int decode_from_soundcard(FILE *output, quiet_decoder_options *opt) {
     }
 
     PaDeviceIndex device = Pa_GetDefaultInputDevice();
+    if (device == paNoDevice) {
+        printf("failed to find default input device\n");
+        return 1;
+    }
     const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(device);
+    if (deviceInfo->maxInputChannels < 1) {
+        printf("default input device does not support input\n");
+        return 1;
+    }
+    printf("using device %s\n", deviceInfo->name);
     double sample_rate = deviceInfo->defaultSampleRate;
     PaTime latency = deviceInfo->defaultLowInputLatency;
 

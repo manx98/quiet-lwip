@@ -4,7 +4,7 @@
 
 #include "quiet-portaudio.h"
 
-int encode_to_soundcard(FILE *input, quiet_encoder_options *opt) {
+static int encode_to_soundcard(FILE *input, quiet_encoder_options *opt) {
     PaError err = Pa_Initialize();
     if (err != paNoError) {
         printf("failed to initialize port audio, %s\n", Pa_GetErrorText(err));
@@ -12,7 +12,16 @@ int encode_to_soundcard(FILE *input, quiet_encoder_options *opt) {
     }
 
     PaDeviceIndex device = Pa_GetDefaultOutputDevice();
+    if (device == paNoDevice) {
+        printf("failed to find default output device\n");
+        return 1;
+    }
     const PaDeviceInfo *deviceInfo = Pa_GetDeviceInfo(device);
+    if (deviceInfo->maxOutputChannels == 0) {
+        printf("default output device has no output channels\n");
+        return 1;
+    }
+    printf("using device %s\n", deviceInfo->name);
     double sample_rate = deviceInfo->defaultSampleRate;
     PaTime latency = deviceInfo->defaultLowOutputLatency;
 
