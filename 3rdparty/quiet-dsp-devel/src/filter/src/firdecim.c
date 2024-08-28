@@ -29,6 +29,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#if __linux__
+#include <alloca.h>
+#endif
 
 // decimator structure
 struct FIRDECIM(_s) {

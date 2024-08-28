@@ -77,6 +77,9 @@ static const liquid_float_complex _Complex_I(0.0f, 1.0f);
 #  define LIBFEC_ENABLED 1
 #endif
 
+#if __linux__
+#include <alloca.h>
+#endif
 //
 // Debugging macros
 //
