@@ -62,7 +62,7 @@
 #include <time.h>
 #include <sys/mman.h>
 #include <signal.h> /* For sig_atomic_t */
-#include <bits/types/struct_timeval.h>
+#include <sys/time.h>
 #include <alloca.h>
 #ifdef PA_ALSA_DYNAMIC
     #include <dlfcn.h> /* For dlXXX functions */
