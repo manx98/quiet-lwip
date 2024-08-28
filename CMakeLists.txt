@@ -13,7 +13,7 @@ else()
     endif()
 endif()
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c11 -Wpedantic -Wall")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wpedantic -Wall")
 if (NOT APPLE)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -D_XOPEN_SOURCE=700")
 endif()

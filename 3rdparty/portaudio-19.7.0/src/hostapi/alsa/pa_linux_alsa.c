@@ -62,6 +62,8 @@
 #include <time.h>
 #include <sys/mman.h>
 #include <signal.h> /* For sig_atomic_t */
+#include <bits/types/struct_timeval.h>
+#include <alloca.h>
 #ifdef PA_ALSA_DYNAMIC
     #include <dlfcn.h> /* For dlXXX functions */
 #endif
@@ -865,7 +867,6 @@ static PaError GropeDevice( snd_pcm_t* pcm, int isPlug, StreamDirection mode, in
     }
 
     ENSURE_( alsa_snd_pcm_nonblock( pcm, 0 ), paUnanticipatedHostError );
-
     alsa_snd_pcm_hw_params_alloca( &hwParams );
     alsa_snd_pcm_hw_params_any( pcm, hwParams );
 
