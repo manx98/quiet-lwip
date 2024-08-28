@@ -5,15 +5,15 @@
 
 #include <sndfile.h>
 
-float freq2rad(float freq) { return freq * 2 * M_PI; }
+static float freq2rad(float freq) { return freq * 2 * M_PI; }
 
-const int sample_rate = 44100;
+static const int sample_rate = 44100;
 
-float normalize_freq(float freq, float sample_rate) {
+static float normalize_freq(float freq, float sample_rate) {
     return freq2rad(freq / (float)(sample_rate));
 }
 
-SNDFILE *wav_open(const char *fname, float sample_rate) {
+static SNDFILE *wav_open(const char *fname, float sample_rate) {
     SF_INFO sfinfo;
 
     memset(&sfinfo, 0, sizeof(sfinfo));
@@ -24,13 +24,13 @@ SNDFILE *wav_open(const char *fname, float sample_rate) {
     return sf_open(fname, SFM_WRITE, &sfinfo);
 }
 
-size_t wav_write(SNDFILE *wav, const quiet_sample_t *samples, size_t sample_len) {
+static size_t wav_write(SNDFILE *wav, const quiet_sample_t *samples, size_t sample_len) {
     return sf_write_float(wav, samples, sample_len);
 }
 
-void wav_close(SNDFILE *wav) { sf_close(wav); }
+static void wav_close(SNDFILE *wav) { sf_close(wav); }
 
-int encode_to_wav(FILE *payload, const char *out_fname,
+static int encode_to_wav(FILE *payload, const char *out_fname,
                   const quiet_encoder_options *opt) {
     SNDFILE *wav = wav_open(out_fname, sample_rate);
 

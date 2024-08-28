@@ -4,7 +4,7 @@
 
 #include "quiet-portaudio.h"
 
-int encode_to_soundcard(FILE *input, quiet_encoder_options *opt) {
+static int encode_to_soundcard(FILE *input, quiet_encoder_options *opt) {
     PaError err = Pa_Initialize();
     if (err != paNoError) {
         printf("failed to initialize port audio, %s\n", Pa_GetErrorText(err));

@@ -10,7 +10,7 @@ static void sig_handler(int signal) {
     }
 }
 
-int decode_from_soundcard(FILE *output, quiet_decoder_options *opt) {
+static int decode_from_soundcard(FILE *output, quiet_decoder_options *opt) {
     PaError err = Pa_Initialize();
     if (err != paNoError) {
         printf("failed to initialize port audio, %s\n", Pa_GetErrorText(err));
